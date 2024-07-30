@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* setup color for css */
+.secondaryText {
+  color: #4d6b79;
+}
+.secondaryBackground {
+  background-color: #4d6b79;
+}
+.primaryText {
+  color: #bf5a36;
+}
+.primaryBackground {
+  background-color: #bf5a36;
+}
+.gradient {
+  color: #ebccb5;
+}
+
+.loginBackground {
+  background: rgb(0, 212, 255);
+  background: linear-gradient(
+    180deg,
+    rgba(0, 212, 255, 0.04663872384891454) 0%,
+    rgba(191, 90, 54, 0.38557429807860644) 150%
+  );
+}
