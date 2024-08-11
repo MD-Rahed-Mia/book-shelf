@@ -5,22 +5,78 @@ import { FaRegEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 export default function SignUp() {
   const [isPassVisible, setIsPassVisible] = useState(false);
+  const [formData, setFormData] = useState(null);
+  const [passwordError, setPasswordError] = useState(null);
+  // const [password, setPassword] = useState(null);
+  // const [confirmPassword, setConfirmPassword] = useState(null);
 
   function makePassVisible() {
     setIsPassVisible(!isPassVisible);
+  }
+
+  function handleSignUpForm(event) {
+    event.preventDefault();
+    // if (password.length <= 6) {
+    //   setPassword("password is too short.");
+    //   console.log("password length", password.length);
+    //   if (password !== confirmPassword) {
+    //     setPasswordError("password not match.");
+    //   } else {
+    //     setPasswordError("");
+    //   }
+    // }
+
+    const { password, confirmPassword } = formData;
+    let passError = "";
+
+    if (password.length < 6) {
+      passError = "minimum required 6 digits and more.";
+    } else if (password !== confirmPassword) {
+      passError = "password is not match.";
+    }
+
+    if (passError) {
+      setPasswordError(passError);
+    } else {
+      setPasswordError("");
+      localStorage.setItem("user", JSON.stringify(formData));
+    }
+  }
+
+  function onChangeSignUpForm(event) {
+    const name = event.target.name;
+    const value = event.target.value;
+    setFormData((values) => ({ ...values, [name]: value }));
+  }
+
+  function handlePassword(e) {
+    // setPassword(e.target.value);
+  }
+
+  function handleConfirmPassword(e) {
+    // setConfirmPassword(e.target.value);
   }
   return (
     <div>
       <Layout>
         <div className="w-[90%] min-h-[70vh] mx-auto grid place-content-center grid-cols-1 md:grid-cols-2">
-          <div>
-            <img src="/images/banner.jpeg" alt="banner" />
+          <div className="w-full h-full flex items-center justify-center">
+            <img
+              src="/images/banner.gif"
+              alt="banner"
+              className="max-w-[70%]"
+            />
           </div>
-          <div className="shadow-lg -shadow-lg p-4 loginBackground">
+          <div className="shadow-lg -shadow-lg p-4 loginBackground md:w-[80%] mx-auto">
             <h1 className="text-2xl text-[#4f6d7a] font-bold text-center mt-8 uppercase">
-              sign up
+              <span className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+                Sign up
+              </span>
             </h1>
-            <form action="" method="post" className=" mx-auto px-4 md:px-20">
+            <form
+              className=" mx-auto px-4 md:px-10"
+              onSubmit={handleSignUpForm}
+            >
               <div className="border shadow-sm p-2 w-full border-[#bf5a36] mt-8 rounded-lg">
                 <input
                   type="text"
@@ -28,6 +84,8 @@ export default function SignUp() {
                   id="name"
                   placeholder="name"
                   className="w-full h-full outline-none border-none placeholder:text-[#bf5a36] text-sm bg-transparent"
+                  onChange={onChangeSignUpForm}
+                  required
                 />
               </div>
               <div className="border shadow-sm p-2 w-full border-[#bf5a36] mt-8 rounded-lg">
@@ -37,15 +95,21 @@ export default function SignUp() {
                   id="email"
                   placeholder="email"
                   className="w-full h-full outline-none border-none placeholder:text-[#bf5a36] text-sm bg-transparent"
+                  onChange={onChangeSignUpForm}
+                  required
                 />
               </div>
               <div className="border shadow-sm p-2 w-full border-[#bf5a36] mt-8 rounded-lg flex items-center justify-between">
                 <input
                   type={isPassVisible ? "text" : "password"}
-                  name="password "
+                  name="password"
                   id="password"
                   placeholder="password"
                   className="w-full h-full outline-none border-none placeholder:text-[#bf5a36] text-sm bg-transparent"
+                  onChange={(e) => {
+                    onChangeSignUpForm(e);
+                    handlePassword(e);
+                  }}
                 />
                 <span
                   className="cursor-pointer text-[#bf5a36]"
@@ -54,13 +118,21 @@ export default function SignUp() {
                   {isPassVisible ? <FaRegEye /> : <FaEyeSlash />}
                 </span>
               </div>
+
+              <div>
+                <p className="text-red-700 text-sm">{passwordError}</p>
+              </div>
               <div className="border shadow-sm p-2 w-full border-[#bf5a36] mt-8 rounded-lg flex items-center justify-between">
                 <input
                   type={isPassVisible ? "text" : "password"}
-                  name="confirm password"
+                  name="confirmPassword"
                   id="confirm password"
                   placeholder="confirm password"
                   className="w-full h-full outline-none border-none placeholder:text-[#bf5a36] text-sm bg-transparent"
+                  onChange={(e) => {
+                    onChangeSignUpForm(e);
+                    handleConfirmPassword(e);
+                  }}
                 />
                 <span
                   className="cursor-pointer text-[#bf5a36]"
@@ -68,6 +140,9 @@ export default function SignUp() {
                 >
                   {isPassVisible ? <FaRegEye /> : <FaEyeSlash />}
                 </span>
+              </div>
+              <div>
+                <p className="text-red-700 text-sm">{passwordError}</p>
               </div>
               <div className="mt-4">
                 <p className="text-[#4f6d7a] text-sm">
@@ -79,7 +154,7 @@ export default function SignUp() {
               </div>
               <div className="mt-12">
                 <button
-                  type="button"
+                  type="submit"
                   className="px-10 block mx-auto mt-5 py-1 bg-[#bf5a36] text-white rounded-md outline-none border-none uppercase"
                 >
                   sign up

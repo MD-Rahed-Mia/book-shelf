@@ -1,14 +1,28 @@
 const SubCategory = () => {
   return (
     <>
-      <ul className="w-[90%] md:w-[70%] mx-auto flex flex-wrap items-center justify-center gap-3 mt-5">
-        <li className="bg-[#4e6c79] py-2 px-6 text-white rounded-lg cursor-pointer">Novels</li>
-        <li className="bg-[#4e6c79] py-2 px-6 text-white rounded-lg cursor-pointer">Educations</li>
-        <li className="bg-[#4e6c79] py-2 px-6 text-white rounded-lg cursor-pointer">Kids</li>
-        <li className="bg-[#4e6c79] py-2 px-6 text-white rounded-lg cursor-pointer">Coding</li>
-        <li className="bg-[#4e6c79] py-2 px-6 text-white rounded-lg cursor-pointer">History</li>
-        <li className="bg-[#4e6c79] py-2 px-6 text-white rounded-lg cursor-pointer">Fiction</li>
-      </ul>
+      <div>
+        <ul className="w-full flex flex-wrap items-center gap-2 justify-center mt-12">
+          <li className="px-3 border  cursor-pointer rounded-md min-w-32 text-center py-2 transition-all hover:bg-slate-300">
+            Writer
+          </li>
+          <li className="px-3 border  cursor-pointer rounded-md min-w-32 text-center py-2 transition-all hover:bg-slate-300">
+            Publication
+          </li>
+          <li className="px-3 border  cursor-pointer rounded-md min-w-32 text-center py-2 transition-all hover:bg-slate-300">
+            Popularity{" "}
+          </li>
+          <li className="px-3 border  cursor-pointer rounded-md min-w-32 text-center py-2 transition-all hover:bg-slate-300">
+            History
+          </li>
+          <li className="px-3 border  cursor-pointer rounded-md min-w-32 text-center py-2 transition-all hover:bg-slate-300">
+            Thriller{" "}
+          </li>
+          <li className="px-3 border  cursor-pointer rounded-md min-w-32 text-center py-2 transition-all hover:bg-slate-300">
+            Biographic
+          </li>
+        </ul>
+      </div>
     </>
   );
 };

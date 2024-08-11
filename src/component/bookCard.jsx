@@ -2,38 +2,40 @@ import React, { useEffect, useState } from "react";
 import { FaStar } from "react-icons/fa";
 import { FaRegStar } from "react-icons/fa";
 import Loading from "./Loading";
-export default function BookCard() {
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-setTimeout(() => {
-  setLoading(false)
-}, 1500)
-  }, [])
+export default function BookCard({ book, loading }) {
   return (
     <>
       {loading ? (
-        <div className="shadow-lg min-w-48">
+        <div className="shadow-lg min-w-48 min-h-[200px]">
           <Loading />
         </div>
       ) : (
         <>
-          <div className="shadow-md -shadow-md max-w-[350px] grid grid-cols-2 rounded-md">
+          <div
+            className="shadow-md -shadow-md max-w-[350px] min-w-[300px] min-h-44 grid grid-cols-2 p-2 rounded-md border flex-shrink-0"
+            data-aos="fade-up"
+          >
             <div>
-              <img src="https://placehold.jp/150x200.png" alt="book card" />
+              <img
+                src={book?.image || "/images/bookIcon.png"}
+                className="max-w-[120px]"
+                alt="book card"
+              />
             </div>
             <div>
-              <ul className="flex items-center justify-center gap-2 mt-2">
+              <ul className="flex items-center justify-center gap-2 mt-2 text-sm">
                 <RatingBar rating={3} />
               </ul>
               <div className="text-center">
-                <h1 className="text-lg mt-3 leading-5">
-                  Sharlok Homes wedding books
+                <h1 className="text-[13px] mt-3 leading-5">
+                  {book?.title || "books title here"}
                 </h1>
-                <h1 className="text-sm">Sharloks home</h1>
+                {/* <h1 className="text-[12px]">Sharloks home</h1> */}
               </div>
               <div>
-                <h1 className="text-xl text-center text-[#bf5a36]">BDT 120</h1>
+                <h1 className="text-xl text-center text-[#bf5a36]">
+                  {book?.price || "$ 0.00"}
+                </h1>
                 <button className="block mx-auto text-center border-2 border-[#bf5a36] rounded-sm px-3 mt-3 py-1 hover:bg-[#bf5a36] hover:text-white transition">
                   Buy now
                 </button>

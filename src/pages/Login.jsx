@@ -1,41 +1,88 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Layout from "./layout";
 import { FaRegEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 export default function Login() {
   const [isPassVisible, setIsPassVisible] = useState(false);
+  const [formData, setFormData] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
 
+  const Navigate = useNavigate();
   function makePassVisible() {
     setIsPassVisible(!isPassVisible);
   }
+
+  function hanldeChange(event) {
+    const name = event.target.name;
+    const value = event.target.value;
+    setFormData((values) => ({ ...values, [name]: value }));
+  }
+
+  function handleLoginSubmit(event) {
+    event.preventDefault();
+    const userData = JSON.parse(localStorage.getItem("user"));
+
+    let errorMsg = "";
+
+    if (userData) {
+      const { email, password } = userData;
+
+      if (email !== formData.email) {
+        errorMsg = "Invalid email.";
+        setErrorMessage(errorMsg);
+      } else if (password !== formData.password) {
+        errorMsg = "Invalid credential.";
+        setErrorMessage(errorMsg);
+      } else {
+        errorMsg = "";
+        localStorage.setItem("loggedUser", JSON.stringify(formData));
+        setErrorMessage(errorMsg);
+        Navigate("/");
+      }
+    }
+  }
+
   return (
     <>
       <Layout>
         <div className="w-[90%] min-h-[70vh] mx-auto grid place-content-center grid-cols-1 md:grid-cols-2">
-          <div>
-            <img src="/images/banner.jpeg" alt="banner" />
+          <div className="w-full h-full flex items-center justify-center">
+            <img
+              src="/images/banner.gif"
+              alt="banner"
+              className="max-w-[70%]"
+            />
           </div>
-          <div className="shadow-lg -shadow-lg p-4 loginBackground">
+          <div className="shadow-lg -shadow-lg p-4 loginBackground md:w-[80%] mx-auto ">
             <h1 className="text-2xl text-[#4f6d7a] font-bold text-center mt-8 uppercase">
-              Login
+              <span className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+                Login
+              </span>
             </h1>
-            <form action="" method="post" className="mx-auto px-3 md:px-20">
-              <div className="border shadow-sm p-2 w-full border-[#bf5a36] mt-8 rounded-lg">
+            <form
+              className="mx-auto px-3 md:px-10"
+              onSubmit={handleLoginSubmit}
+            >
+              <div className="text-sm text-red-500">{errorMessage}</div>
+              <div className="border shadow-sm p-2 w-full  border-[#bf5a36] mt-8 rounded-lg">
                 <input
                   type="email"
                   name="email"
                   id="email"
                   placeholder="email"
                   className="w-full h-full outline-none border-none placeholder:text-[#bf5a36] text-sm bg-transparent"
+                  onChange={hanldeChange}
                 />
               </div>
               <div className="border shadow-sm p-2 w-full border-[#bf5a36] mt-8 rounded-lg flex items-center justify-between">
                 <input
                   type={isPassVisible ? "text" : "password"}
-                  name="password "
+                  name="password"
                   id="password"
                   placeholder="password"
                   className="w-full h-full outline-none border-none placeholder:text-[#bf5a36] text-sm bg-transparent"
+                  onChange={hanldeChange}
                 />
                 <span
                   className="cursor-pointer text-[#bf5a36]"
@@ -54,7 +101,7 @@ export default function Login() {
               </div>
               <div className="mt-12">
                 <button
-                  type="button"
+                  type="submit"
                   className="px-10 block mx-auto mt-5 py-1 bg-[#bf5a36] text-white rounded-md outline-none border-none uppercase"
                 >
                   log in
