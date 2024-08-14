@@ -13,7 +13,7 @@ export default function MarketPlace() {
             <img
               src="/images/marketPlaceBanner.jpg"
               alt="banner"
-              className="max-h-[350px] mx-auto"
+              className="max-h-[350px] mx-auto my-12"
             />
           </div>
           {/* <div>

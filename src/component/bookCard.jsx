@@ -12,7 +12,7 @@ export default function BookCard({ book, loading }) {
       ) : (
         <>
           <div
-            className="shadow-md -shadow-md max-w-[350px] min-w-[300px] min-h-44 grid grid-cols-2 p-2 rounded-md border flex-shrink-0"
+            className="shadow-gradient max-w-[350px] w-[300px] min-h-44 grid grid-cols-2 p-2 mt-3 rounded-md border flex-shrink-0"
             data-aos="fade-up"
           >
             <div>

@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url("https://fonts.googleapis.com/css2?family=New+Amsterdam&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap");
+
+/* font family  */
+.new-amsterdam-regular {
+  font-family: "Noto Sans", sans-serif;
+  font-weight: 500;
+}
+
 /* setup color for css */
 .secondaryText {
   color: #4d6b79;
@@ -53,3 +61,31 @@
     transform: rotate(360deg);
   }
 }
+
+/* shadow  */
+.shadow-gradient {
+  box-shadow: 2px 2px 20px rgba(0, 212, 255, 0.2),
+    -2px -4px 10px rgba(0, 212, 155, 0.3);
+}
+
+.border-gradient {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 35px;
+  background: white;
+  border-radius: 100px;
+  margin: 0 auto;
+}
+
+.border-gradient::after {
+  content: "";
+  position: absolute;
+  width: 101%;
+  height: 110%;
+  background-image: linear-gradient(to right, #c94eed, #7e76e3, #11b0d5);
+  z-index: -1;
+  border-radius: 100px;
+}
+

@@ -11,7 +11,7 @@ export default function Nav() {
     setMenu(!menu);
   }
   return (
-    <div className="flex items-center justify-between px-3 py-2 lg:w-4/5 mx-auto">
+    <div className="flex  items-center justify-between px-3 py-2 lg:w-4/5 mx-auto sticky top-0 left-0 bg-white z-50">
       <div>
         <h1 className="text-[20px] md:text-[50px] font-bold curp">
           <a href="/">
@@ -34,37 +34,42 @@ export default function Nav() {
             display: menu ? "flex" : "",
           }}
         >
-          <li className="cursor-pointer px-[20px] ">
+          <li className="cursor-pointer px-[20px] hover:text-orange-700 transition font-bold">
             <a href="/">Home</a>
           </li>
-          <li className="cursor-pointer px-[20px] ">
+          <li className="cursor-pointer px-[20px] hover:text-orange-700 transition font-bold ">
             <a href="/market-place">Market place</a>
           </li>
-          <li className="cursor-pointer px-[20px] ">
+          <li className="cursor-pointer px-[20px] hover:text-orange-700 transition font-bold ">
             <a href="">Contact us</a>
           </li>
-          <li className="cursor-pointer px-[20px] ">
+          <li className="cursor-pointer px-[20px] hover:text-orange-700 transition font-bold ">
             <a href="">About us</a>
           </li>
 
           <li className="md:hidden">
             <a href="/profile">Profile</a>
           </li>
-          <li className="md:hidden" onClick={() => localStorage.removeItem("loggedUser")}>Log out</li>
+          <li
+            className="md:hidden"
+            onClick={() => localStorage.removeItem("loggedUser")}
+          >
+            Log out
+          </li>
 
           {getUser.email == undefined ? (
             <>
-              <li className="cursor-pointer  bg-[#4e6c79] py-2 px-6  text-white rounded">
+              <li className="cursor-pointer  bg-[#4e6c79] py-2 px-6  hover:text-orange-700 transition font-bold text-white rounded">
                 <a href="/login" className="w-full h-full inline-block">
                   login
                 </a>
               </li>
-              <li className="cursor-pointer  bg-[#f2cb9e] py-2 px-6 rounded">
+              <li className="cursor-pointer  bg-[#f2cb9e] py-2 px-6  hover:text-orange-700 transition font-bold rounded">
                 <a href="/signup">sign up</a>
               </li>
             </>
           ) : (
-            <li className="cursor-pointer py-2 px-6 relative">
+            <li className="cursor-pointer py-2 px-6 hover:text-orange-700 transition font-bold relative">
               <img
                 src="/images/profile.jpg"
                 alt="profile"
@@ -75,11 +80,11 @@ export default function Nav() {
               {miniMenu ? (
                 <div className="absolute top-full left-1/2 -translate-x-1/2  md:right-4 shadow px-3 py-4 min-w-40  bg-white rounded-md hidden md:block z-50">
                   <ul>
-                    <li className="mt-3 cursor-pointer">
+                    <li className="mt-3 cursor-pointer  hover:text-orange-700 transition font-bold">
                       <a href="/profile">Profile</a>
                     </li>
                     <li
-                      className="mt-3 cursor-pointer"
+                      className="mt-3 cursor-pointer  hover:text-orange-700 transition font-bold"
                       onClick={() => {
                         localStorage.removeItem("loggedUser");
                         window.location.reload();

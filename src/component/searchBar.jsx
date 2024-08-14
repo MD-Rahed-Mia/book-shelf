@@ -2,52 +2,46 @@ import React from "react";
 import { IoSearchSharp } from "react-icons/io5";
 export default function SearchBar() {
   return (
-    <div className="w-[90%] md:w-[80%] mx-auto mt-5 flex items-center justify-between flex-wrap">
-      <div className="flex items-center justify-between min-h-[40px] border-2  rounded-lg border-[#bf5a36] min-w-[250px] w-[80%] md:w-[30%] mx-auto">
+    <div className="w-[90%] mx-auto mt-5 grid grid-cols-1 md:grid-cols-2 gap-5">
+      <div className="border-gradient">
         <input
           type="text"
           name="search"
           id="search"
           placeholder="search books"
-          className="w-full h-full bg-none outline-none px-2"
+          className="h-[30px] md:w-[300px] outline-none border-none bg-transparent ps-3"
         />
-        <span className="px-4 bg-[#bf5a36] min-h-[40px] flex items-center justify-center text-white cursor-pointer ">
+        <span className="px-4  min-h-[40px] flex items-center justify-center cursor-pointer ">
           <IoSearchSharp />
         </span>
       </div>
 
-      <div className="flex items-center justify-center gap-3 flex-wrap  mx-auto mt-4 md:mt-0">
-        <div>
-          <select
-            name="categories"
-            id="categories"
-            className="p-2 rounded-lg cursor-pointer bg-none text-[#bf5a36] px-3"
-          >
-            <option value="select value" defaultValue={true}>
-              select categories
-            </option>
-            <option value="Action and adventure">Action and adventure</option>
-            <option value="Classic">Classic</option>
-            <option value="Crime">Crime</option>
-            <option value="Drama">Drama</option>
-            <option value="Fantasy">Fantasy</option>
-            <option value="History">History</option>
-            <option value="Romance">Romance</option>
-          </select>
-        </div>
-        <div>
-          <select
-            name="types"
-            id="types"
-            className="p-2 rounded-lg cursor-pointer text-[#bf5a36] px-3 bg-none"
-          >
-            <option value="select type" defaultValue={true}>
-              select type
-            </option>
-            <option value="bestSeller">best seller</option>
-            <option value="topRated">top rated</option>
-            <option value="newComing">new coming</option>
-          </select>
+      <div>
+        <div className="relative w-[50%] mx-auto md:w-60 bg-slate-500 min-w-[200px] overflow-hidden px-4 py-2 select-box  hover:overflow-visible text-center">
+          <label htmlFor="select-category" className="px-4 py-2  text-white ">
+            Select Category
+          </label>
+          <input
+            type="checkbox"
+            name="select-category"
+            id="select-category"
+            className="hidden"
+          />
+
+          <div className="absolute top-full left-0 flex items-center justify-center flex-col w-full z-50">
+            <span className="py-1 cursor-pointer mt-1 text-white bg-slate-400 px-3 w-full h-10 flex items-center justify-center ">
+              option 1
+            </span>
+            <span className="py-1 cursor-pointer mt-1 text-white bg-slate-400 px-3 w-full h-10 flex items-center justify-center">
+              option 2
+            </span>
+            <span className="py-1 cursor-pointer mt-1 text-white bg-slate-400 px-3 w-full h-10 flex items-center justify-center">
+              option 3
+            </span>
+            <span className="py-1 cursor-pointer mt-1 text-white bg-slate-400 px-3 w-full h-10 flex items-center justify-center">
+              option 4
+            </span>
+          </div>
         </div>
       </div>
     </div>
