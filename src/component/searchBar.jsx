@@ -2,20 +2,20 @@ import React from "react";
 import { IoSearchSharp } from "react-icons/io5";
 export default function SearchBar() {
   return (
-    <div className="w-[90%] mx-auto mt-5 grid grid-cols-1 md:grid-cols-2 gap-5">
-      <div className="border-gradient">
+    <div className="w-4/5 md:w-1/3  mx-auto">
+      <div className="border-gradient text-white bg-transparent flex items-center justify-between">
         <input
           type="text"
           name="search"
           id="search"
           placeholder="search books"
-          className="h-[30px] md:w-[300px] outline-none border-none bg-transparent ps-3"
+          className="h-[30px] ms-3 outline-none border-none bg-transparent placeholder:text-white"
         />
-        <span className="px-4  min-h-[40px] flex items-center justify-center cursor-pointer ">
+        <span className="px-4 min-h-[40px] flex items-center justify-center cursor-pointer ">
           <IoSearchSharp />
         </span>
       </div>
-
+{/* 
       <div>
         <div className="relative w-[50%] mx-auto md:w-60 bg-slate-500 min-w-[200px] overflow-hidden px-4 py-2 select-box  hover:overflow-visible text-center">
           <label htmlFor="select-category" className="px-4 py-2  text-white ">
@@ -43,7 +43,7 @@ export default function SearchBar() {
             </span>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

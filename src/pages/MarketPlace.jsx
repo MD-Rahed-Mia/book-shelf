@@ -61,7 +61,7 @@ const BooksForU = () => {
           <LoadingSpinner />
         </div>
       )}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  place-items-center gap-y-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  place-items-center gap-y-5">
         {books?.map((book, index) => (
           <BookCard book={book} key={index} loading={loading} />
         ))}

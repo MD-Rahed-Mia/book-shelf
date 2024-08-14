@@ -18,21 +18,23 @@ export default function Cart() {
   }
   return (
     <div>
-      <div
-        className="fixed top-20  md:top-40 right-3 text-2xl  cursor-pointer translate-y-1/2 h-12 w-12 rounded-full bg-blue-500 flex items-center justify-center text-white transition z-50"
-        data-aos="fade-in"
-        onClick={handleCartDetail}
-      >
+      {getUser.email && (
         <div
-          className={
-            cartOpen
-              ? "transition-transform duration-300 transform animation-spin-infinite"
-              : "transition-transform duration-300 transform animation-spin "
-          }
+          className="fixed bottom-4 left-8 right-3 text-2xl  cursor-pointer translate-y-1/2 h-12 w-12 rounded-full bg-blue-400 flex items-center justify-center text-white transition z-50"
+          data-aos="fade-in"
+          onClick={handleCartDetail}
         >
-          {cartOpen ? <RxCross1 /> : <FaCartArrowDown />}
+          <div
+            className={
+              cartOpen
+                ? "transition-transform duration-300 transform animation-spin-infinite"
+                : "transition-transform duration-300 transform animation-spin "
+            }
+          >
+            {cartOpen ? <RxCross1 /> : <FaCartArrowDown />}
+          </div>
         </div>
-      </div>
+      )}
 
       {cartOpen ? (
         <CartDetail cartOpen={cartOpen} setCartOpen={setCartOpen} />
@@ -47,13 +49,6 @@ const CartDetail = ({ cartOpen, setCartOpen }) => {
   const { getUser } = useContext(IsLoggedIn);
   return (
     <div className="w-[100vw] min-h-[100vh] fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-lg shadow-lg p-4 flex items-center  justify-center  bg-[rgba(0,0,0,0.5)] border z-[1]">
-      {/* <div
-        className="absolute top-2 right-3 text-xl cursor-pointer md:hidden"
-        onClick={() => setCartOpen(!cartOpen)}
-      >
-        <RxCross1 />
-      </div> */}
-
       {getUser.email == undefined ? <h1>Please logging first</h1> : ""}
 
       <div className=" overflow-auto mx-auto min-h-[500px] py-4 border bg-white rounded-lg relative">

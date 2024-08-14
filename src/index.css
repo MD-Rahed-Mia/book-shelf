@@ -71,10 +71,7 @@
 .border-gradient {
   position: relative;
   display: flex;
-  align-items: center;
-  justify-content: center;
   height: 35px;
-  background: white;
   border-radius: 100px;
   margin: 0 auto;
 }
@@ -88,4 +85,3 @@
   z-index: -1;
   border-radius: 100px;
 }
-

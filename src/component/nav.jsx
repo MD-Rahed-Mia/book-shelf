@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 import { IsLoggedIn } from "../AuthContext/IsLoggedIn";
+import { RxCross1 } from "react-icons/rx";
 
 export default function Nav() {
   const [menu, setMenu] = useState(false);
@@ -22,54 +23,63 @@ export default function Nav() {
         </h1>
       </div>
       <div>
-        <div className="md:hidden cursor-pointer text-2xl" onClick={handleMenu}>
-          <AiOutlineMenu />
+        <div className="md:hidden cursor-pointer text-4xl hover:scale-125 transition" onClick={handleMenu}>
+          {menu ? <RxCross1 /> : <AiOutlineMenu />}
         </div>
         <ul
           className={
-            "absolute top-20 md:top-0 md:static right-5 min-w-[200px] p-2 bg-white rounded items-center justify-center gap-3 flex-col md:flex-row hidden md:flex shadow-md md:shadow-none z-50"
+            "absolute top-12 border md:top-0 md:static right-5 min-w-[200px] p-2 bg-white rounded items-center justify-center gap-3 flex-col md:flex-row hidden md:flex shadow-md md:shadow-none z-50"
           }
           id="menu"
           style={{
             display: menu ? "flex" : "",
           }}
         >
-          <li className="cursor-pointer px-[20px] hover:text-orange-700 transition font-bold">
+          <li className="cursor-pointer px-[20px] hover:text-blue-700 transition font-bold">
             <a href="/">Home</a>
           </li>
-          <li className="cursor-pointer px-[20px] hover:text-orange-700 transition font-bold ">
+          <li className="cursor-pointer px-[20px] hover:text-blue-700 transition font-bold ">
             <a href="/market-place">Market place</a>
           </li>
-          <li className="cursor-pointer px-[20px] hover:text-orange-700 transition font-bold ">
+          <li className="cursor-pointer px-[20px] hover:text-blue-700 transition font-bold ">
             <a href="">Contact us</a>
           </li>
-          <li className="cursor-pointer px-[20px] hover:text-orange-700 transition font-bold ">
+          <li className="cursor-pointer px-[20px] hover:text-blue-700 transition font-bold ">
             <a href="">About us</a>
           </li>
 
-          <li className="md:hidden">
-            <a href="/profile">Profile</a>
-          </li>
-          <li
-            className="md:hidden"
-            onClick={() => localStorage.removeItem("loggedUser")}
-          >
-            Log out
-          </li>
+          {getUser.email == undefined ? (
+            ""
+          ) : (
+            <>
+              <li className="md:hidden cursor-pointer font-bold">
+                <a href="/profile">Profile</a>
+              </li>
+              <li
+                className="md:hidden cursor-pointer font-bold"
+                onClick={() => {
+                  localStorage.removeItem("loggedUser");
+                  window.location.reload();
+                }}
+              >
+                Log out
+              </li>
+            </>
+          )}
 
           {getUser.email == undefined ? (
             <>
-              <li className="cursor-pointer  bg-[#4e6c79] py-2 px-6  hover:text-orange-700 transition font-bold text-white rounded">
+              <li className="cursor-pointer  bg-[#4e6c79] py-2 px-6  hover:text-blue-400 transition font-bold text-white rounded">
                 <a href="/login" className="w-full h-full inline-block">
                   login
                 </a>
               </li>
-              <li className="cursor-pointer  bg-[#f2cb9e] py-2 px-6  hover:text-orange-700 transition font-bold rounded">
+              <li className="cursor-pointer  bg-blue-400 text-white py-2 px-6  hover:text-white transition font-bold rounded">
                 <a href="/signup">sign up</a>
               </li>
             </>
           ) : (
-            <li className="cursor-pointer py-2 px-6 hover:text-orange-700 transition font-bold relative">
+            <li className="cursor-pointer py-2 px-6 hover:text-blue-400 transition font-bold relative">
               <img
                 src="/images/profile.jpg"
                 alt="profile"

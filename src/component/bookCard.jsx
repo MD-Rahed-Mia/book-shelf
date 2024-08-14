@@ -33,10 +33,10 @@ export default function BookCard({ book, loading }) {
                 {/* <h1 className="text-[12px]">Sharloks home</h1> */}
               </div>
               <div>
-                <h1 className="text-xl text-center text-[#bf5a36]">
+                <h1 className="text-xl text-center text-blue-400">
                   {book?.price || "$ 0.00"}
                 </h1>
-                <button className="block mx-auto text-center border-2 border-[#bf5a36] rounded-sm px-3 mt-3 py-1 hover:bg-[#bf5a36] hover:text-white transition">
+                <button className="block mx-auto text-center border-2 border-blue-400 rounded-sm px-3 mt-3 py-1 hover:bg-blue-400 hover:text-white transition">
                   Buy now
                 </button>
               </div>

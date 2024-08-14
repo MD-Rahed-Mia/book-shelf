@@ -39,6 +39,7 @@ export default function Login() {
         localStorage.setItem("loggedUser", JSON.stringify(formData));
         setErrorMessage(errorMsg);
         Navigate("/");
+        window.location.reload()
       }
     }
   }
