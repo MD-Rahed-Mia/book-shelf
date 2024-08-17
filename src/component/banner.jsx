@@ -14,10 +14,10 @@ export default function Banner() {
       </h1>
 
       <div className="flex items-center justify-center gap-3 mt-16">
-        <button className="px-6 md:px-6 text-sm py-2 md:text-xl border-2 hover:bg-violet-700 transition hover:text-white border-violet-700 rounded-full cursor-pointer ">
+        <button className="px-6 md:px-6 text-sm py-2 md:text-md border-2 hover:bg-violet-700 transition hover:text-white border-violet-700 rounded-full cursor-pointer ">
           Read more
         </button>
-        <button className="px-6 text-sm md:px-6  py-2 md:text-xl border-2 bg-gradient-to-r text-white from-fuchsia-500 to-pink-500 rounded-full cursor-pointer ">
+        <button className="px-6 text-sm md:px-6  py-2 md:text-md border-2 bg-gradient-to-r text-white from-fuchsia-500 to-pink-500 rounded-full cursor-pointer ">
           Sign up now
         </button>
       </div>

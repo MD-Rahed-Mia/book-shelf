@@ -21,7 +21,7 @@ export default function Cart() {
       {getUser.email && (
         <div
           className="fixed bottom-4 left-8 right-3 text-2xl  cursor-pointer translate-y-1/2 h-12 w-12 rounded-full bg-blue-400 flex items-center justify-center text-white transition z-50"
-          data-aos="fade-in"
+          data-aos="fade-in"  
           onClick={handleCartDetail}
         >
           <div

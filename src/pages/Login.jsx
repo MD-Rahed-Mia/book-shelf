@@ -3,6 +3,7 @@ import Layout from "./layout";
 import { FaRegEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { signInUser } from "../firebase/AuthFirebase";
 export default function Login() {
   const [isPassVisible, setIsPassVisible] = useState(false);
   const [formData, setFormData] = useState(null);
@@ -19,28 +20,17 @@ export default function Login() {
     setFormData((values) => ({ ...values, [name]: value }));
   }
 
-  function handleLoginSubmit(event) {
+  async function handleLoginSubmit(event) {
     event.preventDefault();
-    const userData = JSON.parse(localStorage.getItem("user"));
 
-    let errorMsg = "";
+    const { email, password } = formData;
 
-    if (userData) {
-      const { email, password } = userData;
-
-      if (email !== formData.email) {
-        errorMsg = "Invalid email.";
-        setErrorMessage(errorMsg);
-      } else if (password !== formData.password) {
-        errorMsg = "Invalid credential.";
-        setErrorMessage(errorMsg);
-      } else {
-        errorMsg = "";
-        localStorage.setItem("loggedUser", JSON.stringify(formData));
-        setErrorMessage(errorMsg);
-        Navigate("/");
-        window.location.reload()
-      }
+    try {
+      await signInUser(email, password);
+      Navigate("/")
+      window.location.reload();
+    } catch (error) {
+      throw new Error("failed to signin.");
     }
   }
 

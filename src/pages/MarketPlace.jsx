@@ -4,6 +4,9 @@ import BookCard from "../component/bookCard";
 import LoadingSpinner from "../component/LoadingSpinner";
 import FilterMarketPlace from "../component/FilterMarketPlace";
 import { BooksForUContext } from "../bookContext/BooksForUContext";
+import useFetch from "../customHooks/useFetch";
+
+
 export default function MarketPlace() {
   return (
     <>
@@ -42,18 +45,42 @@ export default function MarketPlace() {
 }
 
 const EndingSoon = () => {
+  const [endingSoonBooks, setEndingSoonBooks] = useState(null);
+  const { loading, data } = useFetch("https://freetestapi.com/api/v1/books?limit=3");
+
+  useEffect(() => {
+    if (data) {
+      setEndingSoonBooks(data);
+    }
+  }, [loading, data]);
+
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 place-items-center gap-y-5">
-        <BookCard />
-        <BookCard />
+        {loading ? <LoadingSpinner /> : ""}
+        {endingSoonBooks &&
+          endingSoonBooks?.map((item, index) => {
+            return <BookCard key={index} book={item} />;
+          })}
       </div>
     </>
   );
 };
 
 const BooksForU = () => {
-  const { books, loading } = useContext(BooksForUContext);
+
+  const [booksForUData, setBooksForUData] = useState(null)
+
+  const { data, loading } = useFetch("https://freetestapi.com/api/v1/books?limit=30")
+
+  useEffect(() => {
+    if (data) {
+      setBooksForUData(data)
+      
+    }
+  }, [data])
+
+
   return (
     <>
       {loading && (
@@ -62,7 +89,7 @@ const BooksForU = () => {
         </div>
       )}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  place-items-center gap-y-5">
-        {books?.map((book, index) => (
+        {booksForUData?.map((book, index) => (
           <BookCard book={book} key={index} loading={loading} />
         ))}
       </div>

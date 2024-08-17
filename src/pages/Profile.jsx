@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import Layout from "./layout";
-import { FaPencil } from "react-icons/fa6";
+import { FaPencil, FaPhone } from "react-icons/fa6";
 import { FaMailBulk, FaMap } from "react-icons/fa";
 import { IsLoggedIn } from "../AuthContext/IsLoggedIn";
 import { useNavigate } from "react-router-dom";
+import { getUserProfile } from "../firebase/getDataFirebase";
 
 export default function Profile() {
   const { getUser } = useContext(IsLoggedIn);
@@ -41,6 +42,34 @@ const ProfileBanner = () => {
 };
 
 const PersonalDetails = () => {
+
+  const [user, setUser] = useState(null);
+
+  const { getUser } = useContext(IsLoggedIn);
+  useEffect(() => {
+
+
+
+    async function setUpUser() {
+
+      try {
+        const data = await getUserProfile(getUser?.email)
+        if (data) {
+          setUser(data);
+        }
+      } catch (error) {
+        throw new Error("failed to get user.")
+      }
+    }
+    setUpUser();
+  }, [getUser])
+
+
+  useEffect(() => {
+    console.log(user)
+  }, [user])
+
+
   return (
     <>
       <div
@@ -52,7 +81,7 @@ const PersonalDetails = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-3 place-content-center mt-2 gap-3 md:gap-0 text-[#5e7a85]">
         <div>
-          <h1 className="text-2xl">Profile name here</h1>
+          <h1 className="text-2xl">{user?.name}</h1>
           <h1 className="flex items-center gap-2 cursor-pointer">
             edit profile
             <span>
@@ -62,13 +91,13 @@ const PersonalDetails = () => {
         </div>
         <div>
           <h1 className="flex items-center gap-2">
-            <FaMailBulk /> mdrahed@gmail.com
+            <FaMailBulk /> {user?.email}
           </h1>
-          <h1>0125323r345</h1>
+          <h1 className="flex item-center gap-2"><FaPhone /> {user?.phone || "No phone number found"}</h1>
         </div>
         <div>
           <h1 className="flex items-center gap-2">
-            <FaMap /> 23 Shitol Jorna R/A, Baizid bostami, Chattogram.
+            <FaMap /> {user?.address || 'please setup your present address.'}
           </h1>
         </div>
       </div>

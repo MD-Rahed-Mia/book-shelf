@@ -5,16 +5,17 @@ import LoadingSpinner from "../component/LoadingSpinner";
 import { HomeBooksContext } from "../bookContext/homeBookContext";
 
 export default function FeatureBooks() {
-  // const [books, setBooks] = useState(null);
+  const [books, setBooks] = useState(null);
   // const { data, loading } = useFetch("https://api.itbook.store/1.0/new");
+  const { data, loading } = useFetch("https://freetestapi.com/api/v1/books?limit=3");
 
-  const { books, loading } = useContext(HomeBooksContext);
 
-  // useEffect(() => {
-  //   if (data) {
-  //     setBooks(data.books);
-  //   }
-  // }, [data]);
+
+  useEffect(() => {
+    if (data) {
+      setBooks(data);
+    }
+  }, [data]);
   return (
     <div className="w-[80%] mx-auto mt-5">
       {loading && (

@@ -17,7 +17,7 @@ export default function BookCard({ book, loading }) {
           >
             <div>
               <img
-                src={book?.image || "/images/bookIcon.png"}
+                src={book?.cover_image || "/images/bookIcon.png"}
                 className="max-w-[120px]"
                 alt="book card"
               />

@@ -3,30 +3,24 @@ import Layout from "./layout";
 
 import { FaRegEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
+import { signUpUser } from "../firebase/AuthFirebase";
+import { Commet } from "react-loading-indicators";
+import { setUpUser } from "../firebase/DatabaseFirebase";
+
 export default function SignUp() {
+  const [message, setMessage] = useState(null);
   const [isPassVisible, setIsPassVisible] = useState(false);
   const [formData, setFormData] = useState(null);
   const [passwordError, setPasswordError] = useState(null);
-  // const [password, setPassword] = useState(null);
-  // const [confirmPassword, setConfirmPassword] = useState(null);
 
   function makePassVisible() {
     setIsPassVisible(!isPassVisible);
   }
 
-  function handleSignUpForm(event) {
+  async function handleSignUpForm(event) {
     event.preventDefault();
-    // if (password.length <= 6) {
-    //   setPassword("password is too short.");
-    //   console.log("password length", password.length);
-    //   if (password !== confirmPassword) {
-    //     setPasswordError("password not match.");
-    //   } else {
-    //     setPasswordError("");
-    //   }
-    // }
-
-    const { password, confirmPassword } = formData;
+    setMessage("request send.");
+    const { password, confirmPassword, email, name } = formData;
     let passError = "";
 
     if (password.length < 6) {
@@ -39,7 +33,14 @@ export default function SignUp() {
       setPasswordError(passError);
     } else {
       setPasswordError("");
-      localStorage.setItem("user", JSON.stringify(formData));
+
+      try {
+        await signUpUser(email, password);
+        await setUpUser(name, email, "", "")
+        setMessage(null);
+      } catch (error) {
+        throw new Error("something went wrong");
+      }
     }
   }
 
@@ -72,6 +73,14 @@ export default function SignUp() {
               <span className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
                 Sign up
               </span>
+            </h1>
+
+            <h1>
+              {message && (
+                <div className="w-3/4 mx-auto mt-3 text-center">
+                  <Commet color="#01f4ed" size="small" text="" textColor="" />
+                </div>
+              )}
             </h1>
             <form
               className=" mx-auto px-4 md:px-10"

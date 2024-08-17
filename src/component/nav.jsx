@@ -23,7 +23,10 @@ export default function Nav() {
         </h1>
       </div>
       <div>
-        <div className="md:hidden cursor-pointer text-4xl hover:scale-125 transition" onClick={handleMenu}>
+        <div
+          className="md:hidden cursor-pointer text-4xl hover:scale-125 transition"
+          onClick={handleMenu}
+        >
           {menu ? <RxCross1 /> : <AiOutlineMenu />}
         </div>
         <ul
@@ -58,7 +61,7 @@ export default function Nav() {
               <li
                 className="md:hidden cursor-pointer font-bold"
                 onClick={() => {
-                  localStorage.removeItem("loggedUser");
+                  localStorage.removeItem("user");
                   window.location.reload();
                 }}
               >
@@ -96,7 +99,7 @@ export default function Nav() {
                     <li
                       className="mt-3 cursor-pointer  hover:text-orange-700 transition font-bold"
                       onClick={() => {
-                        localStorage.removeItem("loggedUser");
+                        localStorage.removeItem("user");
                         window.location.reload();
                       }}
                     >
