@@ -5,7 +5,7 @@ import LoadingSpinner from "../component/LoadingSpinner";
 import FilterMarketPlace from "../component/FilterMarketPlace";
 import { BooksForUContext } from "../bookContext/BooksForUContext";
 import useFetch from "../customHooks/useFetch";
-
+import SearchBar from "../component/searchBar";
 
 export default function MarketPlace() {
   return (
@@ -19,9 +19,6 @@ export default function MarketPlace() {
               className="max-h-[350px] mx-auto my-12"
             />
           </div>
-          {/* <div>
-            <SearchBar />
-          </div> */}
 
           <div>
             <h1 className="text-xl my-4 text-[#4f6d7a] font-bold">
@@ -30,6 +27,9 @@ export default function MarketPlace() {
             <EndingSoon />
           </div>
           <div>
+            <div className="mt-8">
+              <SearchBar />
+            </div>
             <FilterMarketPlace />
           </div>
           <div>
@@ -46,7 +46,9 @@ export default function MarketPlace() {
 
 const EndingSoon = () => {
   const [endingSoonBooks, setEndingSoonBooks] = useState(null);
-  const { loading, data } = useFetch("https://freetestapi.com/api/v1/books?limit=3");
+  const { loading, data } = useFetch(
+    "https://freetestapi.com/api/v1/books?limit=3"
+  );
 
   useEffect(() => {
     if (data) {
@@ -68,18 +70,17 @@ const EndingSoon = () => {
 };
 
 const BooksForU = () => {
+  const [booksForUData, setBooksForUData] = useState(null);
 
-  const [booksForUData, setBooksForUData] = useState(null)
-
-  const { data, loading } = useFetch("https://freetestapi.com/api/v1/books?limit=30")
+  const { data, loading } = useFetch(
+    "https://freetestapi.com/api/v1/books?limit=30"
+  );
 
   useEffect(() => {
     if (data) {
-      setBooksForUData(data)
-      
+      setBooksForUData(data);
     }
-  }, [data])
-
+  }, [data]);
 
   return (
     <>
