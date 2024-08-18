@@ -5,9 +5,21 @@ import { FaMailBulk, FaMap } from "react-icons/fa";
 import { IsLoggedIn } from "../AuthContext/IsLoggedIn";
 import { useNavigate } from "react-router-dom";
 import { getUserProfile } from "../firebase/getDataFirebase";
+import EditProfile from "../component/EditProfile";
+import { CirclesWithBar } from "react-loader-spinner";
 
 export default function Profile() {
+  const [editProfileBox, setEditProfileBox] = useState(false);
+
+  const [user, setUser] = useState(null);
+
   const { getUser } = useContext(IsLoggedIn);
+  useEffect(() => {
+    getUserProfile(getUser?.email).then((res) => {
+      setUser(res);
+    });
+  }, [getUser]);
+
   const navigate = useNavigate();
   useEffect(() => {
     if (getUser?.email == undefined) {
@@ -18,8 +30,22 @@ export default function Profile() {
     <>
       <Layout>
         <div className="w-full px-3 md:w-[80%] mx-auto">
+          {editProfileBox ? (
+            <EditProfile
+              editProfileBox={editProfileBox}
+              setEditProfileBox={setEditProfileBox}
+              user={user?.data}
+              id={user?.id}
+            />
+          ) : (
+            ""
+          )}
           <ProfileBanner />
-          <PersonalDetails />
+          <PersonalDetails
+            editProfileBox={editProfileBox}
+            setEditProfileBox={setEditProfileBox}
+            user={user?.data}
+          />
           <ProfileNavigation />
         </div>
       </Layout>
@@ -41,66 +67,60 @@ const ProfileBanner = () => {
   );
 };
 
-const PersonalDetails = () => {
+const PersonalDetails = ({ editProfileBox, setEditProfileBox, user }) => {
+  const [loading, setLoading] = useState(true);
 
-  const [user, setUser] = useState(null);
-
-  const { getUser } = useContext(IsLoggedIn);
   useEffect(() => {
-
-
-
-    async function setUpUser() {
-
-      try {
-        const data = await getUserProfile(getUser?.email)
-        if (data) {
-          setUser(data);
-        }
-      } catch (error) {
-        throw new Error("failed to get user.")
-      }
+    if (user) {
+      setLoading(false);
     }
-    setUpUser();
-  }, [getUser])
-
-
-  useEffect(() => {
-    console.log(user)
-  }, [user])
-
+  }, [user]);
 
   return (
     <>
-      <div
-        className="w-20 mt-10 h-20  md:w-30 md:h-30 rounded-full overflow-hidden object-cover border-2 border-red-500"
-        data-aos="zoom-out"
-      >
-        <img src="/images/profile.jpg" alt="profile" />
-      </div>
+      {loading ? (
+        <div className="w-1/3 mx-auto flex items-center justify-center my-14">
+          <CirclesWithBar />
+        </div>
+      ) : (
+        <>
+          <div
+            className="w-20 mt-10 h-20  md:w-30 md:h-30 rounded-full overflow-hidden object-cover border-2 border-red-500"
+            data-aos="zoom-out"
+          >
+            <img src="/images/profile.jpg" alt="profile" />
+          </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 place-content-center mt-2 gap-3 md:gap-0 text-[#5e7a85]">
-        <div>
-          <h1 className="text-2xl">{user?.name}</h1>
-          <h1 className="flex items-center gap-2 cursor-pointer">
-            edit profile
-            <span>
-              <FaPencil />
-            </span>
-          </h1>
-        </div>
-        <div>
-          <h1 className="flex items-center gap-2">
-            <FaMailBulk /> {user?.email}
-          </h1>
-          <h1 className="flex item-center gap-2"><FaPhone /> {user?.phone || "No phone number found"}</h1>
-        </div>
-        <div>
-          <h1 className="flex items-center gap-2">
-            <FaMap /> {user?.address || 'please setup your present address.'}
-          </h1>
-        </div>
-      </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 place-content-center mt-2 gap-3 md:gap-0 text-[#5e7a85]">
+            <div>
+              <h1 className="text-2xl">{user?.name}</h1>
+              <h1
+                className="flex items-center gap-2 cursor-pointer"
+                onClick={() => setEditProfileBox(true)}
+              >
+                edit profile
+                <span>
+                  <FaPencil />
+                </span>
+              </h1>
+            </div>
+            <div>
+              <h1 className="flex items-center gap-2">
+                <FaMailBulk /> {user?.email}
+              </h1>
+              <h1 className="flex item-center gap-2">
+                <FaPhone /> {user?.phone || "No phone number found"}
+              </h1>
+            </div>
+            <div>
+              <h1 className="flex items-center gap-2">
+                <FaMap />{" "}
+                {user?.address || "please setup your present address."}
+              </h1>
+            </div>
+          </div>
+        </>
+      )}
     </>
   );
 };
