@@ -42,8 +42,10 @@ export default function SignUp() {
           if (res.error == "auth/email-already-in-use") {
             setError("email already register.");
           } else {
-            setUpUser(name, email, "", "");
-            setError(null);
+            setUpUser(name, email, "", "").then((res) => {
+              setError('sign up successfull.')
+            })
+           
           }
           setMessage(null);
         });
