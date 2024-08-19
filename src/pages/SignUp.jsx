@@ -13,15 +13,18 @@ export default function SignUp() {
   const [formData, setFormData] = useState(null);
   const [passwordError, setPasswordError] = useState(null);
 
+  //handle error
+  const [error, setError] = useState(null);
+
   function makePassVisible() {
     setIsPassVisible(!isPassVisible);
   }
 
-  async function handleSignUpForm(event) {
+  function handleSignUpForm(event) {
     event.preventDefault();
-    setMessage("request send.");
     const { password, confirmPassword, email, name } = formData;
     let passError = "";
+    setMessage("request send");
 
     if (password.length < 6) {
       passError = "minimum required 6 digits and more.";
@@ -35,9 +38,15 @@ export default function SignUp() {
       setPasswordError("");
 
       try {
-        await signUpUser(email, password);
-        await setUpUser(name, email, "", "")
-        setMessage(null);
+        signUpUser(email, password).then((res) => {
+          if (res.error == "auth/email-already-in-use") {
+            setError("email already register.");
+          } else {
+            setUpUser(name, email, "", "");
+            setError(null);
+          }
+          setMessage(null);
+        });
       } catch (error) {
         throw new Error("something went wrong");
       }
@@ -69,6 +78,8 @@ export default function SignUp() {
             />
           </div>
           <div className="shadow-lg -shadow-lg p-4 loginBackground md:w-[80%] mx-auto">
+            <div>{error && <h1 className="text-red-500">{error}</h1>}</div>
+
             <h1 className="text-2xl text-[#4f6d7a] font-bold text-center mt-8 uppercase">
               <span className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
                 Sign up

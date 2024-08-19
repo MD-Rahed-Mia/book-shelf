@@ -20,17 +20,23 @@ export default function Login() {
     setFormData((values) => ({ ...values, [name]: value }));
   }
 
-  async function handleLoginSubmit(event) {
+  function handleLoginSubmit(event) {
     event.preventDefault();
 
     const { email, password } = formData;
 
     try {
-      await signInUser(email, password);
-      Navigate("/")
-      window.location.reload();
+      signInUser(email, password).then((res) => {
+        console.log(res);
+        if (res?.error == "auth/invalid-credential") {
+          setErrorMessage("invalid credential.");
+        } else {
+          Navigate("/");
+          window.location.reload();
+        }
+      });
     } catch (error) {
-      throw new Error("failed to signin.");
+      console.log(error.message);
     }
   }
 
